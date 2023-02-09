@@ -8,17 +8,21 @@ dotEnv.config({ path: "./config/.env" });
 const sequelize=require('./config/database');
 
 // get routes
-const courseRoutes = require("./routes/courseRoutes");
+const routeRoutes = require("./routes/routeRoutes");
 const modelSchemaRoutes = require("./routes/modelSchemaRoutes");
-const userRoutes = require("./routes/userRoutes");
+
 const authRoutes = require("./routes/authRoutes");
 const subjectRoutes = require("./routes/subjectRoutes");
 const deviceRoutes = require("./routes/deviceRoutes");
-const noteRoutes = require("./routes/noteRoutes");
-const courseSyllabusRoutes = require("./routes/courseSyllabusRoutes");
-const jointRoutes = require("./routes/jointRoutes");
+const noteRoutes = require("./routes/routeRoutes");
+// const courseSyllabusRoutes = require("./routes/courseSyllabusRoutes");
+const userTravelRoutes = require("./routes/userTravelRoutes");
+const userRoutes = require("./routes/userRoutes");
+const ownerRoutes = require("./routes/ownerRoutes");
+const busTravelRoutes = require("./routes/busTravelRoutes");
 const errorMiddleware = require("./middlewares/error");
 const cookieParser = require("cookie-parser");
+const { calculateGpsCoordinatesDistance } = require("./utils/gpsUtils");
 
 const app = express();
 
@@ -37,18 +41,23 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.use("/", courseRoutes);
+app.use("/", routeRoutes);
+app.use("/",userRoutes);
 app.use("/", modelSchemaRoutes);
-app.use("/", userRoutes);
+app.use("/", ownerRoutes);
 app.use("/", authRoutes);
+app.use("/", userTravelRoutes);
 app.use("/", subjectRoutes);
 app.use("/", deviceRoutes);
-app.use("/", noteRoutes);
-app.use("/", courseSyllabusRoutes);
-app.use("/", jointRoutes);
+// app.use("/", noteRoutes);
+// app.use("/", courseSyllabusRoutes);
+// app.use("/", jointRoutes);
+app.use("/",busTravelRoutes);
+
 
 // custom middleware
 app.use(errorMiddleware);
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

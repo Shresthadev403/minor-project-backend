@@ -8,8 +8,7 @@ const router=express.Router();
 router.post('/register/device',registerNewDevice);
 router.get('/devices',getAllDevices);
 router.get('/device/:deviceId',getDeviceDetails);
-router.put('/update/location/device',requiredToken,updateDeviceLocation);
-router.put('/update/route/device',requiredToken,updateDeviceRoute);
+router.put('/update/route/device/:deviceId',requiredToken,updateDeviceRoute);
 router.delete('/delete/device/:deviceId',deleteDevice);
 
 module.exports=router;

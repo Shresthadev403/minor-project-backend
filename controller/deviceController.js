@@ -83,51 +83,52 @@ exports.deleteDevice = (req, res, next) => {
     });
 };
 
-exports.updateDeviceLocation = (req, res, next) => {
- console.log("cuns");
-  const { location,macAddress } = req.body;
-  console.log(location);
-  console.log(macAddress);
-  // console.log(deviceId);
+// exports.updateDeviceLocation = (req, res, next) => {
+//  console.log("cuns");
+//   const { location,macAddress } = req.body;
+//   console.log(location);
+//   console.log(macAddress);
+//   // console.log(deviceId);
   
 
-  Device.findOne({macAddress:macAddress})
-    .then((device) => {
-      console.log(device);
-      device.location = location;
-      return device.save().then(() => {
-        return res.status(200).json({
-          sucess: true,
-          message: `Device location updated to ${location}`,
-        });
-      });
-    })
-    .catch((err) => {
-      console.log(err);
-      next(new ErrorHandler(err));
-    });
-};
+//   Device.findOne({macAddress:macAddress})
+//     .then((device) => {
+//       console.log(device);
+//       device.location = location;
+//       return device.save().then(() => {
+//         return res.status(200).json({
+//           sucess: true,
+//           message: `Device location updated to ${location}`,
+//         });
+//       });
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//       next(new ErrorHandler(err));
+//     });
+// };
 
 
 exports.updateDeviceRoute = (req, res, next) => {
-  console.log("cuns");
-   const {route,macAddress } = req.body;
+  // console.log("cuns");
+   const {deviceId}=req.params;
+   const {routeId}=req.body;
   //  console.log(location);
-   console.log(macAddress);
+  //  console.log(macAddress);
    // console.log(deviceId);
    
  
-   Device.findOne({macAddress:macAddress})
+   Device.findByPk(deviceId)
      .then((device) => {
       if(!device){
-        next(new ErrorHandler(404,"device not found"));
+        next(new ErrorHandler("device not found",404));
       }
-       console.log(device);
-       device.route = route;
+      //  console.log(device);
+       device.routeId = routeId;
        return device.save().then(() => {
          return res.status(200).json({
            sucess: true,
-           message: `Device route  updated sucessfully`,
+           message: `Device route  updated to ${routeId} sucessfully`,
          });
        });
      })

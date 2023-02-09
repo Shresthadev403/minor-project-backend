@@ -1,5 +1,5 @@
 const sequelize = require("../config/database");
-const Course = require("./courseModel");
+const Course = require("./busTravelModel");
 const Subject = require("./subjectModel");
 const { Sequelize , DataTypes, Model } = require('sequelize');
 

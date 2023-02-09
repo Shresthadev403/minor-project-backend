@@ -4,8 +4,8 @@ const jwt = require("jsonwebtoken");
 
 const { Sequelize, DataTypes, Model } = require("sequelize");
 const { hashPassword } = require("../utils/auth");
-const User = sequelize.define(
-  "User",
+const Owner = sequelize.define(
+  "Owner",
   {
     // Model attributes are defined here
     name: {
@@ -44,16 +44,6 @@ const User = sequelize.define(
       },
       // allowNull defaults to true
     },
-    balance: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: false,
-      defaultValue: 5,
-      validate: {
-        isInt: true,
-        min: -50,
-        max: 1000,
-      },
-    },
     // role: {
     //   type: DataTypes.STRING,
     //   allowNull: false,
@@ -79,21 +69,21 @@ const User = sequelize.define(
   }
 );
 
-User.beforeCreate(async (user, options) => {
+Owner.beforeCreate(async (user, options) => {
   user.password = await user.hashPassword(user.password);
   console.log(user.password);
 });
 
-User.prototype.comparePassword = function (password) {
+Owner.prototype.comparePassword = function (password) {
   return bcrypt.compareSync(password, this.password); // true
 };
 
-User.prototype.hashPassword = async function (password) {
+Owner.prototype.hashPassword = async function (password) {
   const saltRounds = 10;
   return  bcrypt.hashSync(password, saltRounds);
 };
 
-User.prototype.getJwtToken = function () {
+Owner.prototype.getJwtToken = function () {
   return jwt.sign(
     {
       id: this.id,
@@ -103,14 +93,14 @@ User.prototype.getJwtToken = function () {
   );
 };
 
-// User.prototype.increaseCoin = function () {
+// Owner.prototype.increaseCoin = function () {
 //   this.vCoin = this.vCoin + 1;
 // };
 
-// User.prototype.decreaseCoin = function () {
+// Owner.prototype.decreaseCoin = function () {
 //   this.vCoin = this.vCoin - 1;
 // };
 // `sequelize.define` also returns the model
-//   console.log(User === sequelize.models.User); // true
+//   console.log(Owner === sequelize.models.Owner); // true
 
-module.exports = User;
+module.exports = Owner;

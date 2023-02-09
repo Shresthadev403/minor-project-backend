@@ -1,18 +1,27 @@
 const { Sequelize } = require('sequelize');
 const dotEnv=require('dotenv');
+
 // getting enviroment variables
 // dotEnv.config({ path: "./.env" });
-console.log(process.env.PORT);
-const sequelize = new Sequelize(process.env.DB_DATABASE, process.env.DB_USER, process.env.DB_PASS, {
+// console.log(process.env.PORT);
+
+
+// const sequelize = new Sequelize(process.env.DB_DATABASE, process.env.DB_USER, process.env.DB_PASS, {
+//   dialect: 'mysql',
+//   host: process.env.DB_HOST,
+//   port: process.env.DB_PORT,
+//   define: {
+//     timestamps: true,
+//     freezeTableName: true
+//   },
+// }
+// );
+
+const sequelize = new Sequelize('bus_project', 'root', 'password', {
+  host: 'localhost',
   dialect: 'mysql',
-  host: process.env.DB_HOST,
-  port: process.env.DB_PORT,
-  define: {
-    timestamps: true,
-    freezeTableName: true
-  },
-}
-);
+  logging:false
+});
 
 
   

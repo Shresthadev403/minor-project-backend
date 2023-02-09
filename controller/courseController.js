@@ -1,6 +1,6 @@
 
 const { where } = require("sequelize");
-const Course = require("../model/courseModel");
+const Course = require("../model/busTravelModel");
 const { filter } = require("../utils/auth");
 const ErrorHandler = require("../utils/errorHandler");
 

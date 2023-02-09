@@ -1,7 +1,8 @@
 const sequelize = require("../config/database");
 const Subject = require("./subjectModel");
 const { Sequelize , DataTypes, Model } = require('sequelize');
-const User = require("./userModel");
+const Owner = require("./ownerModel");
+const Route = require("./routeModel");
 const Device = sequelize.define(
   "Device",
   {
@@ -19,20 +20,18 @@ const Device = sequelize.define(
         type: DataTypes.INTEGER,
         allowNull:false,
         references: {
-          model: User, // 'M' would also work
+          model: Owner, // 'M' would also work
           key: "id",
         },
         
       },
-      location: {
-        type: DataTypes.STRING,
-        allowNull:false,
-       defaultValue:"0,0"
-        
-      },
-      route: {
-        type: DataTypes.JSON,
-       defaultValue:null
+      routeId: {
+        type: DataTypes.INTEGER,
+         defaultValue:null,
+         references: {
+          model: Route, // 'M' would also work
+          key: "id",
+        },
         
       },
     },
@@ -43,6 +42,6 @@ const Device = sequelize.define(
 );
 
 // `sequelize.define` also returns the model
-//   console.log(User === sequelize.models.User); // true
+//   console.log(Owner === sequelize.models.Owner); // true
 
 module.exports = Device;
