@@ -89,24 +89,35 @@ const calculateAverageVelocity=(nodes)=> {
 // arr.shift();
 // // arr.unshift();
 // console.log(arr);
-async function updateDistanceTravelled(){
-  const result=await sequelize.query('select id from userTravels where busTravelId=1 and destinationLocation is null;',{
-    type: sequelize.QueryTypes.SELECT 
-  });
-  // console.log(result);
-  result.forEach(async(data,index)=>{
-    // console.log(res.id);
-    await UserTravel.update({
-      distanceTravelled:20
-    },{
-      where: {id:data.id}
-    })
-  })
-  console.log("coocococo");
+// async function updateDistanceTravelled(){
+//   const result=await sequelize.query('select id from userTravels where busTravelId=1 and destinationLocation is null;',{
+//     type: sequelize.QueryTypes.SELECT 
+//   });
+//   // console.log(result);
+//   result.forEach(async(data,index)=>{
+//     // console.log(res.id);
+//     await UserTravel.update({
+//       distanceTravelled:20
+//     },{
+//       where: {id:data.id}
+//     })
+//   })
+//   console.log("coocococo");
+// }
+
+
+// updateDistanceTravelled();
+
+const calculateBusFareRatePerMeter=(distanceTravelled)=>{
+if(distanceTravelled<20){
+  return 20;
+}else{
+
+  // some price mapping functions here
+ return 200;
+}
+  
 }
 
 
-updateDistanceTravelled();
-
-
-module.exports={calculateGpsCoordinatesDistance,parseLatAndLong,calculateAverageVelocity};
+module.exports={calculateGpsCoordinatesDistance,parseLatAndLong,calculateAverageVelocity,calculateBusFareRatePerMeter};
