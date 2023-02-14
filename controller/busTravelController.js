@@ -21,7 +21,7 @@ exports.getAllBusTravel = async (req, res, next) => {
     });
 };
 
-exports.createNewBusTravel = (req, res, next) => {
+exports.createNewBusTravel =async(req, res, next) => {
   const { startLocation, deviceId } = req.body;
   const date = new Date();
   const recentNodes = {
@@ -30,6 +30,31 @@ exports.createNewBusTravel = (req, res, next) => {
       [startLocation, date],
     ],
   };
+  // check if device id has route definded
+  const deviceResult=await sequelize.query(`select * from devices where devices.id =${deviceId}`,{
+    type: sequelize.QueryTypes.SELECT 
+  });
+
+ console.log(deviceResult,"ddddddddddddddd");
+ if(deviceResult && deviceResult[0].routeId==null){
+  return res.status(400).json({
+    sucess:false,
+    error:"your device doesnot have a defined route"
+  })
+ }
+
+// check for double if only one instace of bustravel is created by a single device
+  const result=await sequelize.query(`select id from busTravels where deviceId=${deviceId} and stopLocation is null;`,{
+    type: sequelize.QueryTypes.SELECT 
+  });
+
+ console.log(result,"ddddddddddddddd");
+ if(result.length>0){
+  return res.status(400).json({
+    sucess:false,
+    error:"you have previous bus trave ongoing please close that first"
+  })
+ }
 
   // const locations=[[location]]
   const busTravel = BusTravel.build({

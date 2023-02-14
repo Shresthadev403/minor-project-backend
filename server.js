@@ -14,7 +14,7 @@ const modelSchemaRoutes = require("./routes/modelSchemaRoutes");
 const authRoutes = require("./routes/authRoutes");
 const subjectRoutes = require("./routes/subjectRoutes");
 const deviceRoutes = require("./routes/deviceRoutes");
-const noteRoutes = require("./routes/routeRoutes");
+const othersRoutes = require("./routes/othersRoutes");
 // const courseSyllabusRoutes = require("./routes/courseSyllabusRoutes");
 const userTravelRoutes = require("./routes/userTravelRoutes");
 const userRoutes = require("./routes/userRoutes");
@@ -34,7 +34,7 @@ const port = process.env.PORT;
 app.use(morgan("tiny"));
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors());
+app.use(cors({origin: true, credentials: true, }));
 
 // routes
 app.get("/", (req, res) => {
@@ -47,7 +47,7 @@ app.use("/", modelSchemaRoutes);
 app.use("/", ownerRoutes);
 app.use("/", authRoutes);
 app.use("/", userTravelRoutes);
-app.use("/", subjectRoutes);
+app.use("/", othersRoutes);
 app.use("/", deviceRoutes);
 // app.use("/", noteRoutes);
 // app.use("/", courseSyllabusRoutes);
