@@ -52,7 +52,7 @@ app.use("/", deviceRoutes);
 // app.use("/", noteRoutes);
 // app.use("/", courseSyllabusRoutes);
 // app.use("/", jointRoutes);
-app.use("/",busTravelRoutes);
+// app.use("/",busTravelRoutes);
 
 
 // custom middleware
