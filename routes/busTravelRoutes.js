@@ -1,5 +1,5 @@
 const express=require('express');
-const {  getAllBusTravel, getBusTravelDetails, deleteBusTravel, createNewBusTravel, updateBusTravel, endBusTravel } = require('../controller/bustravelController');
+const { getAllBusTravel, createNewBusTravel, getBusTravelDetails, updateBusTravel, endBusTravel, deleteBusTravel }=require('../controller/busTravelController');
 
 const router=express.Router();
 

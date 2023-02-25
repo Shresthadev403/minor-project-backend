@@ -19,7 +19,7 @@ const othersRoutes = require("./routes/othersRoutes");
 const userTravelRoutes = require("./routes/userTravelRoutes");
 const userRoutes = require("./routes/userRoutes");
 const ownerRoutes = require("./routes/ownerRoutes");
-// const busTravelRoutes = require("./routes/busTravelRoutes");
+const busTravelRoutes = require('./routes/busTravelRoutes')
 const errorMiddleware = require("./middlewares/error");
 const cookieParser = require("cookie-parser");
 const { calculateGpsCoordinatesDistance } = require("./utils/gpsUtils");
@@ -52,7 +52,7 @@ app.use("/", deviceRoutes);
 // app.use("/", noteRoutes);
 // app.use("/", courseSyllabusRoutes);
 // app.use("/", jointRoutes);
-// app.use("/",busTravelRoutes);
+app.use("/",busTravelRoutes);
 
 
 // custom middleware
