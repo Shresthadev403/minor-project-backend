@@ -6,22 +6,33 @@ const dotEnv=require('dotenv');
 // console.log(process.env.PORT);
 
 
-const sequelize = new Sequelize(process.env.DB_DATABASE, process.env.DB_USER, process.env.DB_PASS, {
-  dialect: 'mysql',
-  host: process.env.DB_HOST,
-  port: process.env.DB_PORT,
-  define: {
-    timestamps: true,
-    freezeTableName: true
-  },
-}
-);
+// const sequelize = new Sequelize(process.env.DB_DATABASE, process.env.DB_USER, process.env.DB_PASS, {
+//   dialect: 'mysql',
+//   host: process.env.DB_HOST,
+//   port: process.env.DB_PORT,
+//   define: {
+//     timestamps: true,
+//     freezeTableName: true
+//   },
+// }
+// );
 
 // const sequelize = new Sequelize('bus_project', 'root', 'password', {
 //   host: 'localhost',
 //   dialect: 'mysql',
 //   logging:false
 // });
+
+
+// Replace the URL with your own MySQL URL
+const sequelize = new Sequelize('mysql://gunt788r2zo0rkjxbwms:************@us-east.connect.psdb.cloud/mysql_bus?ssl={"rejectUnauthorized":false}');
+
+// Test the connection
+
+
+
+
+
 
 
   
