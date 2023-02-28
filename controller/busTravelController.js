@@ -31,7 +31,7 @@ exports.createNewBusTravel =async(req, res, next) => {
     ],
   };
   // check if device id has route definded
-  const deviceResult=await sequelize.query(`select * from device where device.id =${deviceId}`,{
+  const deviceResult=await sequelize.query(`select * from devices where devices.id =${deviceId}`,{
     type: sequelize.QueryTypes.SELECT 
   });
 
