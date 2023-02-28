@@ -21,8 +21,25 @@ exports.getAllUserTravel = async (req, res, next) => {
 };
 
 exports.createNewUserTravel =async (req, res, next) => {
-  const { busTravelId,userId } = req.body;
+  const { macAddress,tagId } = req.body;
   const date = new Date();
+
+  const userResult=await sequelize.query(`select id as userId from users where tagId="${tagId}";`,{
+    type: sequelize.QueryTypes.SELECT 
+  });
+
+  const {userId}=userResult[0];
+  console.log((userId));
+
+  const busTravelResult=await sequelize.query(`select bustravels.id as busTravelId from devices inner join bustravels on devices.id=bustravels.deviceId where devices.macAddress="${macAddress}" and bustravels.stoplocation is null;`,{
+    type: sequelize.QueryTypes.SELECT 
+  });
+
+  const{busTravelId}=busTravelResult[0];
+
+
+
+
 //   const recentNodes = {
 //     locationsWithTimeStamp: [startLocation, date],
 //   };
@@ -134,7 +151,14 @@ exports.userTravelCheckOut = async (req, res, next) => {
   //  console.log("cuns");
   // const filterParams = await filter(req.query);
 
-  const { userTravelId } = req.params;
+  const { macAddress,tagId } = req.body;
+  const userTravelResult=await sequelize.query(`select usertravels.id as userTravelId from usertravels inner join users on usertravels.userId=users.id inner join devices where devices.macAddress="${macAddress}" and users.tagId="${tagId}" and usertravels.destinationLocation is null;`,{
+    type: sequelize.QueryTypes.SELECT 
+  });
+  if(userTravelResult.length==0){
+    return next(new ErrorHandler("please check in bus firsst",400))
+  }
+  const{ userTravelId}=userTravelResult[0];
   
 
   UserTravel.findByPk(userTravelId)
@@ -152,13 +176,14 @@ exports.userTravelCheckOut = async (req, res, next) => {
       // console.log(latestNode);
       // console.log(latestDestinationLocation);
       const busPriceRate=calculateBusFareRatePerMeter(userTravel.distanceTravelled);
-      // console.log(busPriceRate);
+      console.log(busPriceRate);
       userTravel.destinationLocation=latestDestinationLocation;
       const totalPrice=userTravel.distanceTravelled*busPriceRate;
       console.log(totalPrice);
+      console.log(userTravel.userId);
 
   const result1=await sequelize.query(`update Users set balance=balance-${totalPrice} where id=${userTravel.userId};`,{
-    type: sequelize.QueryTypes.SELECT 
+    type: sequelize.QueryTypes.UPDATE
   });
 
      
@@ -169,7 +194,7 @@ exports.userTravelCheckOut = async (req, res, next) => {
         // console.log(status);
         return res.status(200).json({
           sucess: true,
-          message: `UserTravel  updated sucessfully`,
+          message: `UserTravel  check out sucessfully`,
         });
       });
     })

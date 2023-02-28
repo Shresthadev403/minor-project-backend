@@ -16,6 +16,14 @@ const User = sequelize.define(
         notNull: true,
       },
     },
+    tagId: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+        notNull: true,
+      },
+    },
     email: {
       type: DataTypes.STRING,
       allowNull: false,

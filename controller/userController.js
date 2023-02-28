@@ -17,9 +17,9 @@ exports.getAllUsers = async (req, res, next) => {
 };
 
 exports.createNewUser = (req, res, next) => {
-  const { email, password ,name} = req.body;
+  const { email, password ,name,tagId} = req.body;
 
-  const user = User.build({ email: email, name:name, password: password });
+  const user = User.build({ email: email, name:name, password: password,tagId:tagId });
   return user.save().then((user) => {
     console.log(user.toJSON());
     return res.status(200).json({

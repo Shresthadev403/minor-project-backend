@@ -7,7 +7,7 @@ router.get('/userTravels',getAllUserTravel);
 router.post('/create/userTravel',createNewUserTravel);
 router.get('/userTravel/:userTravelId',getUserTravelDetails);
 router.put('/update/userTravel/:userTravelId',updateUserTravel);
-router.put('/userTravel/checkout/:userTravelId',userTravelCheckOut);
+router.put('/userTravel/checkout',userTravelCheckOut);
 router.delete('/delete/userTravel/:userTravelId',deleteUserTravel);
 
 module.exports=router;

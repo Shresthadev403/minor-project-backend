@@ -120,8 +120,15 @@ exports.deleteBusTravel = (req, res, next) => {
 };
 
 exports.updateBusTravel = async (req, res, next) => {
-  const { busTravelId } = req.params;
-  const { location } = req.query;
+  // const { busTravelId } = req.body;
+  const { location,macAddress } = req.body;
+
+  const busTravelResult=await sequelize.query(`select bustravels.id as busTravelId from devices inner join bustravels on devices.id=bustravels.deviceId where devices.macAddress="${macAddress}" and bustravels.stoplocation is null;`,{
+    type: sequelize.QueryTypes.SELECT 
+  });
+
+  const{busTravelId}=busTravelResult[0];
+
   const date = new Date();
   const currentLocationWithTimeStamp = [location, date.toISOString()];
   console.log(currentLocationWithTimeStamp);

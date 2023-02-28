@@ -1,6 +1,7 @@
 
 const ErrorHandler = require("../utils/errorHandler");
 const Owner = require("../model/ownerModel");
+const { filter } = require("../utils/auth");
 
 exports.getAllOwners = async (req, res, next) => {
   const filterParams=await filter(req.query);
