@@ -53,13 +53,13 @@ const User = sequelize.define(
       // allowNull defaults to true
     },
     balance: {
-      type: DataTypes.INTEGER.UNSIGNED,
+      type: DataTypes.FLOAT.UNSIGNED,
       allowNull: false,
       defaultValue: 5,
       validate: {
-        isInt: true,
-        min: -50,
-        max: 1000,
+        isFloat: true,
+        min: -50000,
+        max: 1000000000,
       },
     },
     // role: {

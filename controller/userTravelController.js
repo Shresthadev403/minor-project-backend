@@ -3,6 +3,7 @@ const UserTravel = require("../model/userTravelModel");
 const { filter } = require("../utils/auth");
 const ErrorHandler = require("../utils/errorHandler");
 const { calculateBusFareRatePerMeter } = require("../utils/gpsUtils");
+const sendMail =require('../utils/sendMail')
 
 exports.getAllUserTravel = async (req, res, next) => {
   const filterParams = await filter(req.query);
@@ -155,6 +156,8 @@ exports.userTravelCheckOut = async (req, res, next) => {
   const userTravelResult=await sequelize.query(`select usertravels.id as userTravelId from usertravels inner join users on usertravels.userId=users.id inner join devices where devices.macAddress="${macAddress}" and users.tagId="${tagId}" and usertravels.destinationLocation is null;`,{
     type: sequelize.QueryTypes.SELECT 
   });
+
+  console.log(userTravelResult);
   if(userTravelResult.length==0){
     return next(new ErrorHandler("please check in bus firsst",400))
   }
@@ -178,6 +181,7 @@ exports.userTravelCheckOut = async (req, res, next) => {
       const busPriceRate=calculateBusFareRatePerMeter(userTravel.distanceTravelled);
       console.log(busPriceRate);
       userTravel.destinationLocation=latestDestinationLocation;
+      userTravel.priceRate=busPriceRate;
       const totalPrice=userTravel.distanceTravelled*busPriceRate;
       console.log(totalPrice);
       console.log(userTravel.userId);
@@ -186,8 +190,9 @@ exports.userTravelCheckOut = async (req, res, next) => {
     type: sequelize.QueryTypes.UPDATE
   });
 
+  console.log(userTravel);
      
-      
+      sendMail("mygaming.sta@gmail.com",userTravel);
 
       // userTravel.nodes={locations:locations};
       return userTravel.save().then(() => {

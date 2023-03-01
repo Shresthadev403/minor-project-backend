@@ -17,15 +17,15 @@ const dotEnv=require('dotenv');
 // }
 // );
 
-// const sequelize = new Sequelize('bus_project', 'root', 'password', {
-//   host: 'localhost',
-//   dialect: 'mysql',
-//   logging:false
-// });
+const sequelize = new Sequelize('bus_project', 'root', 'password', {
+  host: 'localhost',
+  dialect: 'mysql',
+  logging:false
+});
 
 
 // Replace the URL with your own MySQL URL
-const sequelize = new Sequelize('mysql://gunt788r2zo0rkjxbwms:************@us-east.connect.psdb.cloud/mysql_bus?ssl={"rejectUnauthorized":false}');
+// const sequelize = new Sequelize('mysql://SG-real-parade-6253-7284-mysql-master.servers.mongodirector.com:3306/minorbus');
 
 // Test the connection
 
