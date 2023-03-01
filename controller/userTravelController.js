@@ -25,14 +25,14 @@ exports.createNewUserTravel =async (req, res, next) => {
   const { macAddress,tagId } = req.body;
   const date = new Date();
 
-  const userResult=await sequelize.query(`select id as userId from users where tagId="${tagId}";`,{
+  const userResult=await sequelize.query(`select id as userId from User where tagId="${tagId}";`,{
     type: sequelize.QueryTypes.SELECT 
   });
 
   const {userId}=userResult[0];
   console.log((userId));
 
-  const busTravelResult=await sequelize.query(`select bustravels.id as busTravelId from devices inner join bustravels on devices.id=bustravels.deviceId where devices.macAddress="${macAddress}" and bustravels.stoplocation is null;`,{
+  const busTravelResult=await sequelize.query(`select BusTravel.id as busTravelId from Device inner join BusTravel on Device.id=BusTravel.deviceId where Device.macAddress="${macAddress}" and BusTravel.stoplocation is null;`,{
     type: sequelize.QueryTypes.SELECT 
   });
 
@@ -46,7 +46,7 @@ exports.createNewUserTravel =async (req, res, next) => {
 //   };
 
   // const locations=[[location]]
-  const result=await sequelize.query(`select recentNodes from busTravels where id=${busTravelId};`,{
+  const result=await sequelize.query(`select recentNodes from BusTravel where id=${busTravelId};`,{
     type: sequelize.QueryTypes.SELECT 
   });
   const latestNode=result[0].recentNodes.locationsWithTimeStamp;
@@ -153,7 +153,7 @@ exports.userTravelCheckOut = async (req, res, next) => {
   // const filterParams = await filter(req.query);
 
   const { macAddress,tagId } = req.body;
-  const userTravelResult=await sequelize.query(`select usertravels.id as userTravelId from usertravels inner join users on usertravels.userId=users.id inner join devices where devices.macAddress="${macAddress}" and users.tagId="${tagId}" and usertravels.destinationLocation is null;`,{
+  const userTravelResult=await sequelize.query(`select UserTravel.id as userTravelId from UserTravel inner join User on UserTravel.userId=User.id inner join Device where Device.macAddress="${macAddress}" and User.tagId="${tagId}" and UserTravel.destinationLocation is null;`,{
     type: sequelize.QueryTypes.SELECT 
   });
 
@@ -171,7 +171,7 @@ exports.userTravelCheckOut = async (req, res, next) => {
         // console.log("vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv");
         return next(new ErrorHandler("userTravel doesnot exist",404));
       }
-      const result=await sequelize.query(`select recentNodes from busTravels where id=${userTravel.busTravelId};`,{
+      const result=await sequelize.query(`select recentNodes from BusTravel where id=${userTravel.busTravelId};`,{
         type: sequelize.QueryTypes.SELECT 
       });
   const latestNode=result[0].recentNodes.locationsWithTimeStamp;
@@ -186,7 +186,7 @@ exports.userTravelCheckOut = async (req, res, next) => {
       console.log(totalPrice);
       console.log(userTravel.userId);
 
-  const result1=await sequelize.query(`update Users set balance=balance-${totalPrice} where id=${userTravel.userId};`,{
+  const result1=await sequelize.query(`update User set balance=balance-${totalPrice} where id=${userTravel.userId};`,{
     type: sequelize.QueryTypes.UPDATE
   });
 

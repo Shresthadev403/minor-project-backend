@@ -31,7 +31,7 @@ exports.createNewBusTravel =async(req, res, next) => {
     ],
   };
   // check if device id has route definded
-  const deviceResult=await sequelize.query(`select * from devices where devices.id =${deviceId}`,{
+  const deviceResult=await sequelize.query(`select * from Device where Device.id =${deviceId}`,{
     type: sequelize.QueryTypes.SELECT 
   });
 
@@ -44,7 +44,7 @@ exports.createNewBusTravel =async(req, res, next) => {
  }
 
 // check for double if only one instace of bustravel is created by a single device
-  const result=await sequelize.query(`select id from busTravels where deviceId=${deviceId} and stopLocation is null;`,{
+  const result=await sequelize.query(`select id from BusTravel where deviceId=${deviceId} and stopLocation is null;`,{
     type: sequelize.QueryTypes.SELECT 
   });
 
