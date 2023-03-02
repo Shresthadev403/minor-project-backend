@@ -123,11 +123,13 @@ exports.updateBusTravel = async (req, res, next) => {
   // const { busTravelId } = req.body;
   const { location,macAddress } = req.body;
 
-  const busTravelResult=await sequelize.query(`select bustravels.id as busTravelId from devices inner join bustravels on devices.id=bustravels.deviceId where devices.macAddress="${macAddress}" and bustravels.stoplocation is null;`,{
+  const busTravelResult=await sequelize.query(`select BusTravel.id as busTravelId from Device inner join BusTravel on Device.id=BusTravel.deviceId where Device.macAddress="${macAddress}" and BusTravel.stoplocation is null;`,{
     type: sequelize.QueryTypes.SELECT 
   });
 
   const{busTravelId}=busTravelResult[0];
+
+  console.log(busTravelId,"ddd");
 
   const date = new Date();
   const currentLocationWithTimeStamp = [location, date.toISOString()];
@@ -164,7 +166,7 @@ exports.updateBusTravel = async (req, res, next) => {
     console.log(userDistanceTravelled);
 // getting the users travelling in that bus
 if(userDistanceTravelled>0){
-  const result=await sequelize.query(`select id,distanceTravelled from userTravels where busTravelId=${busTravelId} and destinationLocation is null;`,{
+  const result=await sequelize.query(`select id,distanceTravelled from UserTravel where busTravelId=${busTravelId} and destinationLocation is null;`,{
     type: sequelize.QueryTypes.SELECT 
   });
   console.log(" distance is added to all users");
