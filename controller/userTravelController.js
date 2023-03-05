@@ -192,7 +192,7 @@ exports.userTravelCheckOut = async (req, res, next) => {
 
   console.log(userTravel);
      
-      sendMail("mygaming.sta@gmail.com",userTravel);
+      sendMail("jagadish.sta.test@gmail.com",userTravel);
 
       // userTravel.nodes={locations:locations};
       return userTravel.save().then(() => {

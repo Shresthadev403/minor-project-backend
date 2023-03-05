@@ -12,8 +12,8 @@ async function sendMail(email,userTravelData) {
     secure: false,
     requireTLS: true,
     auth: {
-        user: "shresthadev403@gmail.com",
-        pass: "viqglvryjakuotlw"
+        user: "mygaming.sta@gmail.com",
+        pass: "fxynrfliriphgfpd"
     }
   });
 
