@@ -98,7 +98,7 @@ exports.deleteUser = (req, res, next) => {
 exports.updateUserDetails = (req, res, next) => {
  console.log("cuns");
  const {userId}=req.params;
-  const { email} = req.body;
+  const { email,balance} = req.body;
 
   // console.log(userId);
   
@@ -107,6 +107,7 @@ exports.updateUserDetails = (req, res, next) => {
     .then((user) => {
       console.log(user);
       user.email = email;
+      user.balance=balance;
       return user.save().then(() => {
         return res.status(200).json({
           sucess: true,
