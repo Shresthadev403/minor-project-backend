@@ -110,11 +110,11 @@ const calculateAverageVelocity=(nodes)=> {
 
 const calculateBusFareRatePerMeter=(distanceTravelled)=>{
 if(distanceTravelled<20){
-  return 0.0000001;
+  return 10;
 }else{
 
   // some price mapping functions here
- return 0.0000001;
+ return 0.001;
 }
   
 }
