@@ -192,7 +192,7 @@ exports.userTravelCheckOut = async (req, res, next) => {
 
   console.log(result1,"fffffffffffffff");
      
-      sendMail("chiranjiviacharya@mgmail.com",userTravel);
+      sendMail("chiranjiviacharya71@mgmail.com",userTravel);
 
       // userTravel.nodes={locations:locations};
       return userTravel.save().then(() => {
