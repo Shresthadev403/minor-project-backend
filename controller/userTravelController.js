@@ -190,9 +190,9 @@ exports.userTravelCheckOut = async (req, res, next) => {
     type: sequelize.QueryTypes.UPDATE
   });
 
-  console.log(userTravel);
+  console.log(result1,"fffffffffffffff");
      
-      sendMail("jagadish.sta.test@gmail.com",userTravel);
+      sendMail("chiranjiviacharya@mgmail.com",userTravel);
 
       // userTravel.nodes={locations:locations};
       return userTravel.save().then(() => {
